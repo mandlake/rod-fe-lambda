@@ -1,16 +1,15 @@
 package user;
 
-import common.UtilService;
+import common.AbstractService;
 import common.UtilServiceImpl;
+import enums.Messenger;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends AbstractService<User> implements UserService {
 
     @Getter
     private static UserServiceImpl instance = new UserServiceImpl();
@@ -21,9 +20,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String join(User user) {
+    public Messenger save(User user) {
         users.put(user.getUsername(), user);
-        return "회원가입 성공";
+        return Messenger.SUCCESS;
+    }
+
+    @Override
+    public List<User> findAll() {
+        return  new ArrayList<>(users.values());
     }
 
     @Override
@@ -35,26 +39,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(String username) {
-        return users.get(username);
+    public Optional<User> findById(Long id) {
+        return Optional.of(users
+                .values()
+                .stream()
+                .filter(i -> i.getId().equals(id))
+                .toList().get(0));
     }
 
     @Override
     public String updatePassword(User user) {
         users.get(user.getUsername()).setPassword(user.getPassword());
+
         return "비번 변경 성공";
     }
 
     @Override
-    public String deleteUser(String username) {
-        users.remove(username);
+    public String delete(User user) {
+        users.remove(user.getUsername());
         return "회원삭제";
     }
 
     @Override
-    public List<?> getUserList() {
-        return  new ArrayList<>(users.values());
+    public String deleteAll() {
+        return null;
     }
+
+    @Override
+    public Boolean existsById(Long id) {
+        return users.containsKey(id);
+    }
+
+
 
     @Override
     public List<?> findUsersByName(String name) {
@@ -76,10 +92,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<?> findUsersByJob(String job) {
+
         return users
-                .entrySet()
+                .values()
                 .stream()
-                .filter(i -> i.getKey().equals(job))
+                .filter(i -> i.getJob().equals(job))
                 .collect(Collectors.toList());
     }
 
@@ -93,8 +110,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String countUsers() {
-        return users.size()+"";
+    public String count() {
+        return users.size() + "";
+    }
+
+    @Override
+    public Optional<User> getOne(String id) {
+        return Optional.of(users.get(id));
     }
 
     @Override
@@ -104,19 +126,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String addUsers() {
-        Map<String, User> map = new HashMap<>();
-        UtilService util = UtilServiceImpl.getInstance();
-
-        for(int i=0; i<5; i++){
-            String username = util.createRandomUsername();
-            map.put(username,
-                    User.builder()
-                            .username(username)
-                            .password("1")
-                            .name(util.createRandomName())
-                            .build());
-        }
-        users = map;
+        IntStream.range(0,5)
+                .mapToObj(i -> UtilServiceImpl.getInstance().createRandomUsername())
+                .forEach(i -> users.put(i, User.builder()
+                        .username(i)
+                        .password("1")
+                        .name(UtilServiceImpl.getInstance().createRandomName())
+                        .job(UtilServiceImpl.getInstance().createRandomJob())
+                        .build()));
         return users.size()+"개 더미값 추가";
 
     }

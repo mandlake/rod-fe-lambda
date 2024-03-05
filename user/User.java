@@ -19,10 +19,11 @@ public class User {
     private double weight;
 
     @Builder(builderMethodName = "builder")
-    public User(String username, String password,
+    public User(Long id, String username, String password,
                 String name, String ssn, String phoneNumber,
                 String address, String job,
                 double height, double weight) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;

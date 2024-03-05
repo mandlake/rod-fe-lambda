@@ -61,6 +61,13 @@ public class UtilServiceImpl implements UtilService {
     }
 
     @Override
+    public String createRandomJob() {
+        String[] names = {"경찰", "소방관", "세일즈맨", "교수", "회계사",
+                "공무원", "의사"};
+        return names[createRandomInteger(0,6)];
+    }
+
+    @Override
     public String createRandomUsername() {
         String username = "";
         for(;
