@@ -95,4 +95,8 @@ public class UserController {
     public List<?> getUsers() throws SQLException {
         return service.getUsers();
     }
+
+    public String quitRepository() throws SQLException {
+        return service.quitRepository();
+    }
 }

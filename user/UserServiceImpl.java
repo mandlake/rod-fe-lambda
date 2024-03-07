@@ -134,6 +134,11 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
+    public String quitRepository() throws SQLException {
+        return repository.quitRepository();
+    }
+
+    @Override
     public String addUsers() {
         IntStream.range(0,5)
                 .mapToObj(i -> UtilServiceImpl.getInstance().createRandomUsername())

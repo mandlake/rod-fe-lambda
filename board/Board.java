@@ -2,18 +2,16 @@ package board;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString(exclude = {"id"})
 public class Board {
     private Long id;
-    private String title;
-    private String content;
-    private String writer;
-    @Builder(builderMethodName = "builder")
-    public Board(String title, String content, String writer) {
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-    }
+    protected LocalDate date;
+    protected String title;
+    protected String content;
+    protected String writer;
+    protected int count;
 }

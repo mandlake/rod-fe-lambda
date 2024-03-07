@@ -1,7 +1,6 @@
 package user;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 public class UserView {
@@ -16,6 +15,7 @@ public class UserView {
             switch (scanner.next()){
                 case "0":
                     System.out.println("종료");
+                    System.out.println(controller.quitRepository());
                     return;
                 case "1":
                     System.out.println("1-회원가입");
@@ -47,7 +47,7 @@ public class UserView {
                     break;
                 case "6":
                     System.out.println("6-회원목록");
-                    List<?> users = controller.getUsers();
+                    controller.getUsers();
                     break;
                 case "7":
                     System.out.println("7-이름검색");

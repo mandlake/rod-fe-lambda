@@ -16,4 +16,6 @@ public interface UserService {
     Map<String, ?> getUserMap();
 
     List<?> getUsers() throws SQLException;
+
+    String quitRepository() throws SQLException;
 }
