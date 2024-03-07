@@ -1,23 +1,48 @@
 package user;
 
+import lombok.Getter;
+
 import java.sql.*;
+import java.util.List;
 
 public class UserRepository {
-    public void findUsers() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/roddb";
-        String userName = "roddb";
-        String password = "roddb";
+    @Getter
+    private static UserRepository instance;
 
-        Connection connection = DriverManager.getConnection(url, userName, password);
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from board");
+    static {
+        try {
+            instance = new UserRepository();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        resultSet.next();
-        String name = resultSet.getString("name");
-        System.out.println(name);
+    private final Connection connection;
 
-        resultSet.close();
+    private UserRepository() throws SQLException {
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/roddb",
+                "roddb",
+                "roddb");
+    }
+
+    public List<?> findUsers() throws SQLException {
+        String sql = "select * from board";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+
+        while (rs.next()) {
+            System.out.printf("ID: %d, Title %s, Content: %s, Writer: %s\n",
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4));
+        }
+
+        rs.close();
         statement.close();
         connection.close();
+
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package user;
 
+import javax.swing.plaf.LabelUI;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,6 +47,10 @@ public class UserController {
         return service.findById(Long.parseLong(scanner.next()));
     }
 
+    public Optional<User> getOne(Scanner scanner) {
+        return service.getOne(scanner.next());
+    }
+
     public String updatePassword(Scanner scanner) {
         return service.updatePassword(User.builder()
                 .username(scanner.next())
@@ -82,11 +88,11 @@ public class UserController {
     public String count() {
         return service.count();
     }
-    public Optional<User> getOne(Scanner scanner) {
-        return service.getOne(scanner.next());
-    }
     public Map<String, ?> getUserMap(){
         return service.getUserMap();
     }
 
+    public List<?> getUsers() throws SQLException {
+        return service.getUsers();
+    }
 }
