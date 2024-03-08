@@ -29,15 +29,15 @@ public class BoardView {
                     return;
                 case "1":
                     System.out.println("=== 1-상품게시판 ===");
-                    ProductBoardView.ProductBoardView(sc);
+                    ProductBoardView.ProductBoard(sc);
                     break;
                 case "2":
                     System.out.println("=== 2-고객센터 ===");
-                    InfoBoardView.InfoBoardView(sc);
+                    InfoBoardView.InfoBoard(sc);
                     break;
                 case "3":
                     System.out.println("=== 3-자유게시판 ===");
-                    UserBoardView.UserBoardView(sc);
+                    UserBoardView.UserBoard(sc);
                     break;
                 default: 
                     System.out.println("잘못 입력했습니다. 다시 입력해주세요.");

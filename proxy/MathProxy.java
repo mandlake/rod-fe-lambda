@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 public class MathProxy {
     public static Function<Integer, Integer> absInt = Math::abs;
     public static Function<Double, Double> ansDouble = Math::abs;
+    public static Function<Long, Long> ansLong = Math::abs;
 
     public static Function<Double, Double> ceil = Math::ceil;
 

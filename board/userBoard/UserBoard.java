@@ -13,7 +13,7 @@ public class UserBoard extends Board {
     private Long id;
 
     @Builder(builderMethodName = "builder")
-    public UserBoard(Long id, String title, String content, String writer, int count) {
+    public UserBoard(Long id, String title, String content, String writer, String count) {
         this.id = id;
         this.date = LocalDate.now(ZoneId.of("Korea/Seoul"));
         this.title = title;

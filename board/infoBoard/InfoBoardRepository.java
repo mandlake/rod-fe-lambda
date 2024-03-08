@@ -1,6 +1,7 @@
-package board.productBoard;
+package board.infoBoard;
 
-import board.AbstractBoardRepository;
+import board.productBoard.ProductBoard;
+import common.AbstractRepository;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -9,22 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ProductBoardRepository extends AbstractBoardRepository {
+public class InfoBoardRepository extends AbstractRepository {
+
     @Getter
-    private static ProductBoardRepository instance;
+    private static InfoBoardRepository instance;
 
     static {
         try {
-            instance = new ProductBoardRepository();
+            instance = new InfoBoardRepository();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+
     private final Connection connection;
     List<?> ls;
 
-    private ProductBoardRepository() throws SQLException {
+    private InfoBoardRepository() throws SQLException {
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/roddb",
                 "roddb",
@@ -33,7 +36,7 @@ public class ProductBoardRepository extends AbstractBoardRepository {
     }
 
     public List<?> findBoard() throws SQLException {
-        String sql = "select * from ProductsTable";
+        String sql = "select * from InfoTable";
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet rs = statement.executeQuery();
 
@@ -67,16 +70,19 @@ public class ProductBoardRepository extends AbstractBoardRepository {
         return boardList;
     }
 
-    @Override
     public String quitRepository() throws SQLException {
         connection.close();
         return "연결이 종료되었습니다.";
     }
 
     @Override
+    public Map<String, ?> save(Map<String, ?> paramMap) throws IOException {
+        return null;
+    }
+
     public String createTable() throws SQLException {
         String createTableQuery
-                = "CREATE TABLE IF NOT EXISTS ProductsTable "
+                = "CREATE TABLE IF NOT EXISTS InfoTable "
                 + "(id INT PRIMARY KEY AUTO_INCREMENT, "
                 + "title VARCHAR(20), "
                 + "content VARCHAR(20), "
@@ -90,17 +96,11 @@ public class ProductBoardRepository extends AbstractBoardRepository {
         return "테이블이 생성되었습니다.";
     }
 
-    @Override
     public String removeTable() throws SQLException {
-        String dropTableQuery = "DROP TABLE IF EXISTS ProductsTable";
+        String dropTableQuery = "DROP TABLE IF EXISTS InfoTable";
         PreparedStatement ps = connection.prepareStatement(dropTableQuery);
         ps.executeUpdate();
         ps.close();
         return "테이블이 삭제되었습니다.";
-    }
-
-    @Override
-    public Map<String, ?> save(Map<String, ?> paramMap) throws IOException {
-        return null;
     }
 }

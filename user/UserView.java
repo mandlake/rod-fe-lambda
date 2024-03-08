@@ -10,8 +10,8 @@ public class UserView {
         System.out.println(" addUsers 결과 : "+msg);
         while(true){
             System.out.println("[사용자메뉴] 0-종료 1-회원가입 2-로그인 " +
-                    "3-ID검색 4-비번변경 5-탈퇴 6-회원목록 " +
-                    "7-이름검색 8-직업검색 9-회원수");
+                    "3-ID검색 4-비번변경 5-탈퇴 ls-회원목록 " +
+                    "7-이름검색 8-직업검색 9-회원수 touch-테이블생성 rm-테이블삭제");
             switch (scanner.next()){
                 case "0":
                     System.out.println("종료");
@@ -45,8 +45,8 @@ public class UserView {
                     System.out.println("아이디를 입력하세요.");
                     System.out.println(controller.delete(scanner));
                     break;
-                case "6":
-                    System.out.println("6-회원목록");
+                case "ls":
+                    System.out.println("ls-회원목록");
                     controller.getUsers();
                     break;
                 case "7":
@@ -67,6 +67,12 @@ public class UserView {
                     System.out.println("9-회원수");
                     String numberOfUsers = controller.count();
                     System.out.println("회원수 "+numberOfUsers);
+                    break;
+                case "touch":
+                    System.out.println("touch-테이블생성");
+                    break;
+                case "rm":
+                    System.out.println("rm-테이블삭제");
                     break;
                 default:
                     System.out.println("다시 입력해주세요.");

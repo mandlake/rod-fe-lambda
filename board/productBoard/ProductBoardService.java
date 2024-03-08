@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface ProductBoardService {
     List<?> getAll() throws SQLException;
+
+    String getOne(int i) throws SQLException;
 }
