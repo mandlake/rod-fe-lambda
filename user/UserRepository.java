@@ -1,23 +1,56 @@
 package user;
 
+import lombok.Getter;
+
 import java.sql.*;
+import java.util.List;
 
 public class UserRepository {
-    public void findUsers() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/roddb";
-        String userName = "roddb";
-        String password = "roddb";
+    @Getter
+    private static UserRepository instance;
 
-        Connection connection = DriverManager.getConnection(url, userName, password);
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from board");
+    static {
+        try {
+            instance = new UserRepository();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        resultSet.next();
-        String name = resultSet.getString("name");
-        System.out.println(name);
+    private final Connection connection;
 
-        resultSet.close();
+    private UserRepository() throws SQLException {
+        connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/roddb",
+                "roddb",
+                "roddb");
+    }
+
+    public List<?> findUsers() throws SQLException {
+        String sql = "select * from board";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+
+        if(rs.next()){
+            do {
+                System.out.printf("ID: %d, Title %s, Content: %s, Writer: %s\n",
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getString("writer"));
+            } while (rs.next());
+        } else {
+            System.out.println("데이터가 없습니다.");
+        }
+
+        rs.close();
         statement.close();
+
+        return null;
+    }
+
+    public String quitRepository() throws SQLException {
         connection.close();
+        return "연결이 종료되었습니다.";
     }
 }

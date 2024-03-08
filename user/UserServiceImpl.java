@@ -5,6 +5,7 @@ import common.UtilServiceImpl;
 import enums.Messenger;
 import lombok.Getter;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -15,7 +16,10 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     private static UserServiceImpl instance = new UserServiceImpl();
     Map<String, User> users;
 
+    UserRepository repository;
+
     private UserServiceImpl(){
+        this.repository= UserRepository.getInstance();
         this.users = new HashMap<>();
     }
 
@@ -125,6 +129,16 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
+    public List<?> getUsers() throws SQLException {
+        return repository.findUsers();
+    }
+
+    @Override
+    public String quitRepository() throws SQLException {
+        return repository.quitRepository();
+    }
+
+    @Override
     public String addUsers() {
         IntStream.range(0,5)
                 .mapToObj(i -> UtilServiceImpl.getInstance().createRandomUsername())
@@ -135,6 +149,5 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
                         .job(UtilServiceImpl.getInstance().createRandomJob())
                         .build()));
         return users.size()+"개 더미값 추가";
-
     }
 }
