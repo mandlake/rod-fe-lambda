@@ -77,11 +77,12 @@ public class InfoBoardRepository extends AbstractRepository {
 
     @Override
     public Map<String, ?> save(Map<String, ?> paramMap) throws IOException {
+        String sql = "";
         return null;
     }
 
     public String createTable() throws SQLException {
-        String createTableQuery
+        String sql
                 = "CREATE TABLE IF NOT EXISTS InfoTable "
                 + "(id INT PRIMARY KEY AUTO_INCREMENT, "
                 + "title VARCHAR(20), "
@@ -90,7 +91,7 @@ public class InfoBoardRepository extends AbstractRepository {
                 + "date VARCHAR(20), "
                 + "count VARCHAR(20)"
                 + ")";
-        PreparedStatement ps = connection.prepareStatement(createTableQuery);
+        PreparedStatement ps = connection.prepareStatement(sql);
         ps.executeUpdate();
         ps.close();
         return "테이블이 생성되었습니다.";
