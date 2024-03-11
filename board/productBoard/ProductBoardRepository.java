@@ -1,6 +1,6 @@
-package board.productBoard;
+package com.rod.api.board.productBoard;
 
-import board.AbstractBoardRepository;
+import com.rod.api.board.AbstractBoardRepository;
 import lombok.Getter;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package board.productBoard;
+package com.rod.api.board.productBoard;
 
 import java.sql.SQLException;
 import java.util.Scanner;

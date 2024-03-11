@@ -1,7 +1,7 @@
-package board.productBoard;
+package com.rod.api.board.productBoard;
 
-import board.AbstractBoardService;
-import enums.Messenger;
+import com.rod.api.board.AbstractBoardService;
+import com.rod.api.enums.Messenger;
 import lombok.Getter;
 
 import java.sql.SQLException;

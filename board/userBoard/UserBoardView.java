@@ -1,4 +1,4 @@
-package board.userBoard;
+package com.rod.api.board.userBoard;
 
 import java.util.Scanner;
 

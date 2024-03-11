@@ -1,7 +1,7 @@
-package board.infoBoard;
+package com.rod.api.board.infoBoard;
 
-import board.productBoard.ProductBoard;
-import common.AbstractRepository;
+import com.rod.api.board.productBoard.ProductBoard;
+import com.rod.api.common.AbstractRepository;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -25,6 +25,8 @@ public class InfoBoardRepository extends AbstractRepository {
 
 
     private final Connection connection;
+    private PreparedStatement ps;
+    private ResultSet rs;
     List<?> ls;
 
     private InfoBoardRepository() throws SQLException {
@@ -32,13 +34,15 @@ public class InfoBoardRepository extends AbstractRepository {
                 "jdbc:mysql://localhost:3306/roddb",
                 "roddb",
                 "roddb");
+        ps = null;
+        rs = null;
         this.ls = new ArrayList<>();
     }
 
     public List<?> findBoard() throws SQLException {
         String sql = "select * from InfoTable";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet rs = statement.executeQuery();
+        ps = connection.prepareStatement(sql);
+        rs = ps.executeQuery();
 
         List<ProductBoard> boardList = new ArrayList<>();
 
@@ -65,7 +69,7 @@ public class InfoBoardRepository extends AbstractRepository {
         ls = boardList;
 
         rs.close();
-        statement.close();
+        ps.close();
 
         return boardList;
     }
@@ -91,7 +95,7 @@ public class InfoBoardRepository extends AbstractRepository {
                 + "date VARCHAR(20), "
                 + "count VARCHAR(20)"
                 + ")";
-        PreparedStatement ps = connection.prepareStatement(sql);
+        ps = connection.prepareStatement(sql);
         ps.executeUpdate();
         ps.close();
         return "테이블이 생성되었습니다.";
@@ -99,7 +103,7 @@ public class InfoBoardRepository extends AbstractRepository {
 
     public String removeTable() throws SQLException {
         String dropTableQuery = "DROP TABLE IF EXISTS InfoTable";
-        PreparedStatement ps = connection.prepareStatement(dropTableQuery);
+        ps = connection.prepareStatement(dropTableQuery);
         ps.executeUpdate();
         ps.close();
         return "테이블이 삭제되었습니다.";

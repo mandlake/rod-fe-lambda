@@ -1,6 +1,6 @@
-package board.userBoard;
+package com.rod.api.board.userBoard;
 
-import common.AbstractRepository;
+import com.rod.api.common.AbstractRepository;
 
 import java.io.IOException;
 import java.util.Map;

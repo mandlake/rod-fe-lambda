@@ -1,4 +1,4 @@
-package crawler;
+package com.rod.api.crawler;
 
 import lombok.Getter;
 import org.jsoup.nodes.Element;

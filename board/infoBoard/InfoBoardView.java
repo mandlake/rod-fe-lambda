@@ -1,4 +1,4 @@
-package board.infoBoard;
+package com.rod.api.board.infoBoard;
 
 import java.sql.SQLException;
 import java.util.Scanner;

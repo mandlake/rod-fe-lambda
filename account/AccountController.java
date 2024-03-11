@@ -1,8 +1,8 @@
-package account;
+package com.rod.api.account;
 
 
 
-import enums.Messenger;
+import com.rod.api.enums.Messenger;
 
 import java.util.List;
 import java.util.Scanner;

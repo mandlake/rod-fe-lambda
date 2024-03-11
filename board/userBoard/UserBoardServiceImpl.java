@@ -1,7 +1,7 @@
-package board.userBoard;
+package com.rod.api.board.userBoard;
 
-import board.AbstractBoardService;
-import enums.Messenger;
+import com.rod.api.board.AbstractBoardService;
+import com.rod.api.enums.Messenger;
 
 import java.sql.SQLException;
 import java.util.List;

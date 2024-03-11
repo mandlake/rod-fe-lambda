@@ -1,6 +1,6 @@
-package crawler;
+package com.rod.api.crawler;
 
-import common.AbstractRepository;
+import com.rod.api.common.AbstractRepository;
 import lombok.Getter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

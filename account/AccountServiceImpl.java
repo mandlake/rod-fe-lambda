@@ -1,10 +1,10 @@
-package account;
+package com.rod.api.account;
 
 
-import common.AbstractService;
-import enums.Messenger;
+import com.rod.api.common.AbstractService;
+import com.rod.api.enums.Messenger;
 import lombok.Getter;
-import user.User;
+import com.rod.api.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

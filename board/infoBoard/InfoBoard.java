@@ -1,6 +1,6 @@
-package board.infoBoard;
+package com.rod.api.board.infoBoard;
 
-import board.Board;
+import com.rod.api.board.Board;
 import lombok.*;
 
 import java.time.LocalDate;

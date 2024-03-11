@@ -1,6 +1,6 @@
-package board;
+package com.rod.api.board;
 
-import common.AbstractRepository;
+import com.rod.api.common.AbstractRepository;
 
 import java.sql.SQLException;
 import java.util.List;

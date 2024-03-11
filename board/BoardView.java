@@ -1,14 +1,14 @@
-package board;
+package com.rod.api.board;
 
 
-import account.AccountView;
-import board.infoBoard.InfoBoardView;
-import board.productBoard.ProductBoardView;
-import board.userBoard.UserBoardView;
-import common.UtilService;
-import common.UtilServiceImpl;
-import crawler.CrawlerView;
-import user.UserView;
+import com.rod.api.account.AccountView;
+import com.rod.api.board.infoBoard.InfoBoardView;
+import com.rod.api.board.productBoard.ProductBoardView;
+import com.rod.api.board.userBoard.UserBoardView;
+import com.rod.api.common.UtilService;
+import com.rod.api.common.UtilServiceImpl;
+import com.rod.api.crawler.CrawlerView;
+import com.rod.api.user.UserView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
