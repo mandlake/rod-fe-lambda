@@ -11,22 +11,55 @@ import java.util.Scanner;
 
 
 enum MainPage {
-    EXIT("x"),
-    USER("u"),
-    BOARD("b"),
-    ACCOUNT("a"),
-    CRAWLER("c");
+    EXIT("x"){
+        @Override
+        public void display(Scanner scanner) {
+            System.out.println("Exiting the program.");
+            System.exit(0);
+        }
+    },
+    USER("u"){
+        @Override
+        public void display(Scanner scanner) throws SQLException, IOException {
+            UserView.userView(scanner);
+        }
+    },
+    BOARD("b"){
+        @Override
+        public void display(Scanner scanner) throws SQLException {
+            BoardView.boardView(scanner);
+        }
+    },
+    ACCOUNT("a"){
+        @Override
+        public void display(Scanner scanner) {
+            AccountView.accontView(scanner);
+        }
+    },
+    CRAWLER("c"){
+        @Override
+        public void display(Scanner scanner) throws IOException {
+            CrawlerView.crawlerView(scanner);
+        }
+    };
     private final String s;
 
     MainPage(String s) {
         this.s = s;
     }
 
-    public static String getMainPage(String s) {
-        return s;
+    public static MainPage  getMainPage(String s) {
+        for (MainPage page : values()) {
+            if (page.s.equals(s)) {
+                return page;
+            }
+        }
+        return null;
     }
 
-
+    public void display(Scanner scanner) throws IOException, SQLException {
+        // 각 enum 상수마다 다른 동작을 수행하도록 설정
+    }
 }
 
 public class Main {
@@ -40,15 +73,15 @@ public class Main {
                     "a-Account " +
                     "c-Crawler ===");
 
-            System.out.println(MainPage.getMainPage(sc.next()));
+            String choice = sc.next();
+            MainPage mainPage = MainPage.getMainPage(choice);
 
-            switch (sc.next()){
-                case "x": return;
-                case "u": UserView.userView(sc); break;
-                case "b": BoardView.boardView(sc); break;
-                case "a": AccountView.accontView(sc); break;
-                case "c": CrawlerView.crawlerView(sc); break;
+            if (mainPage == null) {
+                System.out.println("Invalid choice.");
+                continue;
             }
+
+            mainPage.display(sc);
         }
     }
 }

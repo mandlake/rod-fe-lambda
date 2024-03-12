@@ -31,8 +31,9 @@ select player_name from Player where team_id = 'K02' and player_name like '고%'
 -- 005-1. 수원팀에서 성이 고씨이고 키가 170 이상인 선수를 출력하시오. 팀 ID를 모를 때
 
 select player_name from Player where team_id = (select team_id
-                                      from team
-                                      where region_name = '수원') and player_name like '고%' and height >= 170;
+                                                from team
+                                                where region_name = '수원')
+                               and player_name like '고%' and height >= 170;
 
 -- 문제 6
 -- 다음 조건을 만족하는 선수명단을 출력하시오
@@ -47,14 +48,18 @@ select player_name from player where team_id in (select team_id
                                and position = 'MF'
                                and height between 170 and 180;
 
--- 문제 7-- 수원을 연고지로 하는 골키퍼는 누구인가?
+-- 문제 7
+-- 수원을 연고지로 하는 골키퍼는 누구인가?
 
 select player_name from player where team_id = (select team_id
                                                 from team
                                                 where region_name ='수원')
-                                        and position = 'GK';
+                               and position = 'GK';
 
--- 문제 8-- 서울팀 선수들 이름, 키, 몸무게 목록으로 출력하시오-- 키와 몸무게가 없으면 "0" 으로 표시하시오-- 키와 몸무게는 내림차순으로 정렬하시오
+-- 문제 8
+-- 서울팀 선수들 이름, 키, 몸무게 목록으로 출력하시오
+-- 키와 몸무게가 없으면 "0" 으로 표시하시오
+-- 키와 몸무게는 내림차순으로 정렬하시오
 
 select player_name,
     case
@@ -65,8 +70,8 @@ select player_name,
         when weight='' then '0'
         else weight
     end weight from player where team_id = (select team_id
-                                               from team
-                                               where region_name ='서울');
+                                            from team
+                                            where region_name ='서울');
 
 -- 문제 9
 -- 서울팀 선수들 이름과 포지션과
@@ -76,14 +81,16 @@ select player_name,
 -- 최종 결과는 이름내림차순으로 정렬하시오
 
 select player_name, position,
-    case
-        when height='' then '0'
-        else height + 'cm'
-    end height,
-    case
-        when weight='' then '0'
-        else weight + 'kg'
-    end weight,
+    concat(
+        case
+            when height='' then '0'
+            else height
+        end, 'cm') as height,
+    concat(
+        case
+            when weight='' then '0'
+            else weight
+        end, 'kg') as weight,
     case
         when height='' or weight='' then 'NONE'
         else ROUND(weight / ((height / 100) * (height / 100)), 2)

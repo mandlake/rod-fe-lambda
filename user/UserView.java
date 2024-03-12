@@ -3,9 +3,13 @@ package com.rod.api.user;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+
+
 public class UserView {
     public static void userView(Scanner scanner) throws SQLException {
+
         UserController controller = new UserController();
+
         String msg = controller.addUsers();
         System.out.println(" addUsers 결과 : "+msg);
         while(true){
