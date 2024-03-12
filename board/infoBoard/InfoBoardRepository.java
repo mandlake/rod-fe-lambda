@@ -23,7 +23,6 @@ public class InfoBoardRepository extends AbstractRepository {
         }
     }
 
-
     private final Connection connection;
     private PreparedStatement ps;
     private ResultSet rs;

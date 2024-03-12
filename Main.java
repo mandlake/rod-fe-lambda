@@ -9,6 +9,26 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+
+enum MainPage {
+    EXIT("x"),
+    USER("u"),
+    BOARD("b"),
+    ACCOUNT("a"),
+    CRAWLER("c");
+    private final String s;
+
+    MainPage(String s) {
+        this.s = s;
+    }
+
+    public static String getMainPage(String s) {
+        return s;
+    }
+
+
+}
+
 public class Main {
     public static void main(String[] args) throws IOException, SQLException {
         Scanner sc = new Scanner(System.in);
@@ -19,6 +39,9 @@ public class Main {
                     "b-Board " +
                     "a-Account " +
                     "c-Crawler ===");
+
+            System.out.println(MainPage.getMainPage(sc.next()));
+
             switch (sc.next()){
                 case "x": return;
                 case "u": UserView.userView(sc); break;
