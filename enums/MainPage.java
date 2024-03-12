@@ -7,56 +7,51 @@ import com.rod.api.user.UserView;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public enum MainPage {
-    EXIT("x"){
-        @Override
-        public void display(Scanner scanner) {
-            System.out.println("Exiting the program.");
-            System.exit(0);
+    EXIT("x", sc -> System.exit(0)),
+    USER("u", sc -> {
+        try {
+            UserView.userView(sc);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-    },
-    USER("u"){
-        @Override
-        public void display(Scanner scanner) throws SQLException, IOException {
-            UserView.userView(scanner);
+    }),
+    BOARD("b", sc -> {
+        try {
+            BoardView.boardView(sc);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-    },
-    BOARD("b"){
-        @Override
-        public void display(Scanner scanner) throws SQLException {
-            BoardView.boardView(scanner);
+    }),
+    ACCOUNT("a", AccountView::accontView),
+    CRAWLER("c", sc -> {
+        try {
+            CrawlerView.crawlerView(sc);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-    },
-    ACCOUNT("a"){
-        @Override
-        public void display(Scanner scanner) {
-            AccountView.accontView(scanner);
-        }
-    },
-    CRAWLER("c"){
-        @Override
-        public void display(Scanner scanner) throws IOException {
-            CrawlerView.crawlerView(scanner);
-        }
-    };
+    });
     private final String s;
+    private final Consumer<Scanner> consumer;
 
-    MainPage(String s) {
+    MainPage(String s, Consumer<Scanner> consumer) {
         this.s = s;
+        this.consumer = consumer;
     }
 
-    public static MainPage  getMainPage(String s) {
-        for (MainPage page : values()) {
-            if (page.s.equals(s)) {
-                return page;
-            }
-        }
+    public static String goToPage(String s, Scanner sc) {
+        getMainPage(s).consumer.accept(sc);
         return null;
     }
 
-    public void display(Scanner scanner) throws IOException, SQLException {
-        // 각 enum 상수마다 다른 동작을 수행하도록 설정
+    private static MainPage getMainPage(String s) {
+        return Arrays.stream(values())
+                .filter(o -> o.s.equals(s))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("올바른 연산자가 아닙니다."));
     }
 }

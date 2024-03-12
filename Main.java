@@ -19,15 +19,7 @@ public class Main {
                     "a-Account " +
                     "c-Crawler ===");
 
-            String choice = sc.next();
-            MainPage mainPage = MainPage.getMainPage(choice);
-
-            if (mainPage == null) {
-                System.out.println("Invalid choice.");
-                continue;
-            }
-
-            mainPage.display(sc);
+            MainPage.goToPage(sc.next(), sc);
         }
     }
 }
