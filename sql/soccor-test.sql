@@ -123,7 +123,8 @@ order by 1, 2 asc;
 -- 팀과 연고지를 연결해서 출력하시오
 -- 수원 [팀 명]삼성블루윙즈 [홈구장]수원월드컵경기장
 
-select concat (t.region_name, ' ' , t.team_name) as 팀명, concat( s.stadium_name, '') as 홈구장
+select concat (t.region_name, ' ' , t.team_name) as 팀명,
+       s.stadium_name
 from team t join stadium s using (stadium_id)
 where region_name like '수원%';
 
@@ -202,32 +203,45 @@ from stadium st;
 select st.stadium_name, t.team_name
 from stadium st left join team t using (stadium_id);
 
--- 문제 18 플레이어 테이블에서 최상단 5개 로우를 출력
+-- 문제 18
+-- 페이지네이션 로직을 위한
+-- 플레이어 테이블에서 최상단 5개 로우를 출력
 
-select * from player LIMIT 5;
+select player_name from player
+order by 1 LIMIT 5;
 
 -- 문제 19 (그룹바이: 집계함수 - 딱 5개 min, max, count, sum, avg)
 -- 평균키가 인천 유나이티스팀('K04')의 평균키  보다 작은 팀의
 -- 팀ID, 팀명, 평균키 추출
 -- 인천 유나이티스팀의 평균키 - 176.59
--- 키와 몸무게가 없는 칸은 0 값으로 처리한 후 평균값에
--- 포함되지 않도록 하세요.
+-- 키와 몸무게가 없는 칸은 0 값으로 처리한 후 평균값에 포함되지 않도록 하세요.
 
-select t.team_id,
-       t.team_name,
-       (select round(avg(height),2) from player where t.team_id = team_id) as '평균 키'
-from team t
-where (select round(avg(height),2) from player where t.team_id = team_id) <
-      (select round(avg(height),2) from player where team_id = 'k04')
-group by team_id, team_name;
+SELECT
+    p.team_id,
+    t.team_name,
+    ROUND(AVG(p.height), 2) AS '평균'
+FROM
+    team t
+JOIN
+    player p USING (team_id)
+WHERE
+    p.height > 0
+GROUP BY
+    p.team_id
+HAVING
+    AVG(p.height) < (SELECT AVG(p.height)
+                     FROM team
+                     JOIN player p USING(team_id)
+                     WHERE region_name = '인천');
+
 
 -- 문제 20
 -- 포지션이 MF 인 선수들의 소속팀명 및  선수명, 백넘버 출력
 
 select
     (select t.team_name from team t where t.team_id = p.team_id) as '소속 팀명',
-    p.player_name as '선수 명',
-    p.back_no as '백 넘버'
+    p.player_name,
+    p.back_no
 from Player p
 where p.`POSITION` = 'MF';
 
@@ -245,7 +259,7 @@ order by height desc
 limit 5;
 
 -- 문제 22
--- 선수 자신이 속한 팀의 평균키보다 작은  선수 정보 출력
+-- 선수 자신이 속한 팀의 평균키보다 작은 선수 정보 출력
 -- (select round(avg(height),2) from player)
 
 select *
@@ -255,6 +269,8 @@ where p.height < (select round(avg(height),2) from player where team_id = p.team
 -- 문제 23
 -- 2012년 5월 한달간 경기가 있는 경기장 조회
 
-select (select st.stadium_name from stadium st where st.stadium_id = s.stadium_id) as '경기장'
-from schedule s
-where s.sche_date between 20120501 and 20120531;
+
+SELECT DISTINCT st.stadium_name
+FROM schedule s
+    JOIN stadium st USING(stadium_id)
+WHERE s.sche_date BETWEEN '20120501' AND '20120531';
