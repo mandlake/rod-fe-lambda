@@ -34,6 +34,10 @@ public enum NavigationOfConsumer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }),
+
+    ERROR("error", scanner-> {
+        System.out.println("다시 입력해 주세요.");
     });
     private final String s;
     private final Consumer<Scanner> consumer;
@@ -52,6 +56,6 @@ public enum NavigationOfConsumer {
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("다시 입력해 주세요."));
+                .orElse(ERROR);
     }
 }

@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.function.Function;
 import java.util.function.Supplier;
-
-import static java.time.chrono.JapaneseEra.values;
 
 public enum NavigationOfSupply {
     EXIT("x", () -> {
@@ -50,6 +47,10 @@ public enum NavigationOfSupply {
             throw new RuntimeException(e);
         }
         return "종료되었습니다.";
+    }),
+
+    ERROR("error", () -> {
+        return "다시 입력해 주세요.";
     });
     private final String s;
     private final Supplier<String> supplier;
@@ -68,6 +69,6 @@ public enum NavigationOfSupply {
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("다시 입력해 주세요."));
+                .orElse(ERROR);
     }
 }

@@ -42,6 +42,10 @@ public enum Navigation {
             throw new RuntimeException(e);
         }
         return "종료되었습니다.";
+    }),
+
+    ERROR("error", scanner-> {
+        return "다시 입력해 주세요.";
     });
     private final String s;
     private final Function<Scanner, String> function;
@@ -60,6 +64,6 @@ public enum Navigation {
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("다시 입력해 주세요."));
+                .orElse(ERROR);
     }
 }
