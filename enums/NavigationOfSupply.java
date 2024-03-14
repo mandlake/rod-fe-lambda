@@ -9,46 +9,62 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-public enum MainPage {
-    EXIT("x", sc -> System.exit(0)),
-    USER("u", sc -> {
+import static java.time.chrono.JapaneseEra.values;
+
+public enum NavigationOfSupply {
+    EXIT("x", () -> {
+        Scanner sc = new Scanner(System.in);
+        System.exit(0);
+        return "0";
+    }),
+    USER("u", () -> {
+        Scanner sc = new Scanner(System.in);
         try {
             UserView.userView(sc);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return "종료되었습니다.";
     }),
-    BOARD("b", sc -> {
+    BOARD("b", () -> {
+        Scanner sc = new Scanner(System.in);
         try {
             BoardView.boardView(sc);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return "종료되었습니다.";
     }),
-    ACCOUNT("a", AccountView::accontView),
-    CRAWLER("c", sc -> {
+    ACCOUNT("a", () -> {
+        Scanner sc = new Scanner(System.in);
+        AccountView.accontView(sc);
+        return "종료되었습니다.";}),
+    CRAWLER("c", () -> {
+        Scanner sc = new Scanner(System.in);
         try {
             CrawlerView.crawlerView(sc);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return "종료되었습니다.";
     });
     private final String s;
-    private final Consumer<Scanner> consumer;
+    private final Supplier<String> supplier;
 
-    MainPage(String s, Consumer<Scanner> consumer) {
+    NavigationOfSupply(String s, Supplier<String> supplier) {
         this.s = s;
-        this.consumer = consumer;
+        this.supplier = supplier;
     }
 
-    public static void goToPage(Scanner sc) {
+    public static String goToPage(Scanner sc) {
         System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler ===");
-        getMainPage(sc.next()).consumer.accept(sc);
+        return getMainPage(sc.next()).supplier.get();
     }
 
-    private static MainPage getMainPage(String s) {
+    private static NavigationOfSupply getMainPage(String s) {
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))
                 .findFirst()

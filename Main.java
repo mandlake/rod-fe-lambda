@@ -1,6 +1,6 @@
 package com.rod.api;
 
-import com.rod.api.enums.MainPage;
+import com.rod.api.enums.Navigation;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         while (true){
-            MainPage.goToPage(sc);
+            System.out.println(Navigation.goToPage(sc));
         }
     }
 }
