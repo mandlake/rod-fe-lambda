@@ -43,15 +43,15 @@ public enum MainPage {
         this.consumer = consumer;
     }
 
-    public static String goToPage(String s, Scanner sc) {
-        getMainPage(s).consumer.accept(sc);
-        return null;
+    public static void goToPage(Scanner sc) {
+        System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler ===");
+        getMainPage(sc.next()).consumer.accept(sc);
     }
 
     private static MainPage getMainPage(String s) {
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("올바른 연산자가 아닙니다."));
+                .orElseThrow(() -> new IllegalArgumentException("다시 입력해 주세요."));
     }
 }
