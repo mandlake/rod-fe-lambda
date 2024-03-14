@@ -2,7 +2,7 @@ package com.rod.api.account;
 
 
 
-import com.rod.api.enums.Messenger;
+import com.rod.api.enums.messanger.Messenger;
 
 import java.util.List;
 import java.util.Scanner;

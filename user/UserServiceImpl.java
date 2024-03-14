@@ -2,7 +2,7 @@ package com.rod.api.user;
 
 import com.rod.api.common.AbstractService;
 import com.rod.api.common.UtilServiceImpl;
-import com.rod.api.enums.Messenger;
+import com.rod.api.enums.messanger.Messenger;
 import lombok.Getter;
 
 import java.sql.SQLException;

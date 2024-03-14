@@ -1,6 +1,5 @@
 package com.rod.api.strategy;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -30,6 +29,7 @@ public enum WeekendStrategy {
         return Stream.of(values())
                 .filter(i -> i.day.equals(s))
                 .findAny()
-                .orElse(ERROR).function.apply(s);
+                .orElse(ERROR)
+                .function.apply(s);
     }
 }

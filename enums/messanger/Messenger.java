@@ -1,4 +1,4 @@
-package com.rod.api.enums;
+package com.rod.api.enums.messanger;
 
 public enum Messenger {
     SUCCESS,

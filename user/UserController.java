@@ -1,6 +1,7 @@
 package com.rod.api.user;
 
-import javax.swing.plaf.LabelUI;
+import lombok.Getter;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,8 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class UserController {
+    @Getter
+    private static UserController instance = new UserController();;
 
     UserServiceImpl service;
 

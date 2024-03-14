@@ -1,6 +1,6 @@
 package com.rod.api.common;
 
-import com.rod.api.enums.Messenger;
+import com.rod.api.enums.messanger.Messenger;
 
 import java.sql.SQLException;
 import java.util.List;

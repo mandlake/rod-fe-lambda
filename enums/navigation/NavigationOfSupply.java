@@ -1,4 +1,4 @@
-package com.rod.api.enums;
+package com.rod.api.enums.navigation;
 
 import com.rod.api.account.AccountView;
 import com.rod.api.board.BoardView;
@@ -62,13 +62,10 @@ public enum NavigationOfSupply {
 
     public static String goToPage(Scanner sc) {
         System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler ===");
-        return getMainPage(sc.next()).supplier.get();
-    }
-
-    private static NavigationOfSupply getMainPage(String s) {
+        String s = sc.next();
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))
                 .findFirst()
-                .orElse(ERROR);
+                .orElse(ERROR).supplier.get();
     }
 }
