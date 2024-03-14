@@ -44,7 +44,7 @@ public enum MainPage {
     }
 
     public static void goToPage(Scanner sc) {
-        System.out.println("==== x-Exit u-User b-Board a-Account c-Crawler ====");
+        System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler ===");
         getMainPage(sc.next()).consumer.accept(sc);
     }
 
