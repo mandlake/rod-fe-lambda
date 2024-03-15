@@ -77,14 +77,6 @@ public enum UserRouter {
         System.out.println("테이블생성");
         return true;
     }),
-    REMOVE("rm", sc -> {
-        System.out.println("테이블삭제");
-        return true;
-    }),
-    INSERT("in", sc -> {
-        System.out.println("아이템삽입");
-        return true;
-    }),
     ERROR("error", sc-> {
         System.out.println("다시 입력해 주세요.");
         return true;
@@ -98,8 +90,8 @@ public enum UserRouter {
     }
 
     public static Boolean execute(Scanner sc) {
-        System.out.println("[사용자메뉴] x-종료 j-회원가입 l-로그인 id-ID검색 pw-비번변경 e-탈퇴 ls-회원목록 " +
-                "n-이름검색 j-직업검색 c-회원수 mk-테이블생성 rm-테이블삭제 in-아이템삽입");
+        System.out.println("[사용자메뉴] x-종료 mk-테이블생성 joi-회원가입 log-로그인 cat-ID검색 ch-pw-비번변경 rm-탈퇴 ls-a-회원목록 " +
+                "ls-n-이름검색 ls-job-직업검색 cnt-회원수");
         String s = sc.next();
         return Stream.of(values())
                 .filter(o -> o.s.equals(s))
