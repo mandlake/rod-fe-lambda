@@ -11,4 +11,10 @@ public interface MenuService {
     Messenger removeTable() throws SQLException;
 
     List<?> getMenusByCategory(String category);
+
+    List<?> returnAllMenu() throws SQLException;
+
+    Messenger returnMessenger() throws SQLException;
+
+    Menu returnOneMenu() throws SQLException;
 }

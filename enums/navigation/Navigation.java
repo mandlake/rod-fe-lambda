@@ -9,6 +9,7 @@ import com.rod.api.user.UserView;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 
@@ -44,13 +45,13 @@ public enum Navigation {
         }
         return "종료되었습니다.";
     }),
-    CREATE("mk", sc-> {
+    CREATE("mk", sc -> {
         try {
             MenuController.getInstance().createTable();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "종료되었습니다.";
+        return "테이블이 생성되었습니다.";
     }),
     REMOVE("rm", sc-> {
         try {
@@ -58,7 +59,7 @@ public enum Navigation {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "종료되었습니다.";
+        return "테이블이 제거되었습니다.";
     }),
     ERROR("error", sc-> "다시 입력해 주세요.");
     private final String s;
@@ -69,8 +70,11 @@ public enum Navigation {
         this.function = function;
     }
 
-    public static String goToPage(Scanner sc) {
-        System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler mk-Create rm-Remove ===");
+    public static String goToPage(Scanner sc) throws SQLException {
+        List<?> ls = MenuController.getInstance().returnAllNavigate(sc);
+
+
+        System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler ===");
         String s = sc.next();
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))

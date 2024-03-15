@@ -5,6 +5,8 @@ import com.rod.api.enums.messanger.Messenger;
 import lombok.Getter;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
 
 public class MenuController extends AccountController {
     @Getter
@@ -23,5 +25,21 @@ public class MenuController extends AccountController {
 
     public Messenger removeTable() throws SQLException {
         return service.removeTable();
+    }
+
+    public List<?> returnAllMenu() throws SQLException {
+        return service.returnAllMenu();
+    }
+
+    public Messenger returnMessenger() throws SQLException {
+        return service.returnMessenger();
+    }
+
+    public Menu returnOneMenu() throws SQLException {
+        return service.returnOneMenu();
+    }
+
+    public List<?> returnAllNavigate(Scanner sc) throws SQLException {
+        return service.getMenusByCategory("navigate");
     }
 }

@@ -66,4 +66,19 @@ public class MenuServiceImpl implements MenuService {
     public List<?> getMenusByCategory(String category){
         return repository.getMenusByCategory(category);
     }
+
+    @Override
+    public List<?> returnAllMenu() throws SQLException {
+        return repository.returnAllMenu();
+    }
+
+    @Override
+    public Messenger returnMessenger() throws SQLException {
+        return repository.returnMessenger();
+    }
+
+    @Override
+    public Menu returnOneMenu() throws SQLException {
+        return repository.returnOneMenu();
+    }
 }
