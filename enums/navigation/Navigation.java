@@ -12,35 +12,33 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 public enum Navigation {
-    EXIT("x", sc -> {
-        System.exit(0);
-        return "0";
-    }),
+    EXIT("x", sc -> false),
     USER("usr", sc -> {
         try {
             UserView.userView(sc);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "종료되었습니다.";
+        return true;
     }),
     ACCOUNT("acc", sc -> {
-        AccountView.accontView(sc);
-        return "종료되었습니다.";}),
+        AccountView.accountView(sc);
+        return true;
+    }),
     CRAWLER("c", sc -> {
         try {
             CrawlerView.crawlerView(sc);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "종료되었습니다.";
+        return true;
     }),
     ARTICLE("art", sc -> {
         ArticleView.articleView(sc);
-        return "종료되었습니다.";
+        return true;
     }),
     BOARD("bbs", sc -> {
         try {
@@ -48,7 +46,7 @@ public enum Navigation {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "종료되었습니다.";
+        return true;
     }),
     CREATE("mk", sc -> {
         try {
@@ -56,7 +54,7 @@ public enum Navigation {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "테이블이 생성되었습니다.";
+        return true;
     }),
     REMOVE("rm", sc-> {
         try {
@@ -64,20 +62,23 @@ public enum Navigation {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return "테이블이 제거되었습니다.";
+        return true;
     }),
-    ERROR("error", sc-> "다시 입력해 주세요.");
+    ERROR("error", sc-> {
+        System.out.println("잘못 입력했습니다.");
+        return true;
+    });
     private final String s;
-    private final Function<Scanner, String> function;
+    private final Predicate<Scanner> predicate;
 
-    Navigation(String s, Function<Scanner, String> function) {
+    Navigation(String s, Predicate<Scanner> predicate) {
         this.s = s;
-        this.function = function;
+        this.predicate = predicate;
     }
 
-    public static String goToPage(Scanner sc) throws SQLException {
-        List<?> navLs = MenuController.getInstance().returnAllNavigate(sc);
-
+    public static Boolean goToPage(Scanner sc) throws SQLException {
+        List<?> navLs = MenuController.getInstance().returnAllNavigate();
+        navLs.forEach(System.out::println);
 
         System.out.println("=== x-Exit usr-User acc-Account " +
                 "cwl-Crawler art-Article bbs-Board scc-Soccer ===");
@@ -86,6 +87,6 @@ public enum Navigation {
                 .filter(o -> o.s.equals(s))
                 .findFirst()
                 .orElse(ERROR)
-                .function.apply(sc);
+                .predicate.test(sc);
     }
 }

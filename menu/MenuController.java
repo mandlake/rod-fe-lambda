@@ -39,7 +39,7 @@ public class MenuController extends AccountController {
         return service.returnOneMenu();
     }
 
-    public List<?> returnAllNavigate(Scanner sc) throws SQLException {
-        return service.getMenusByCategory("navigate");
+    public List<?> returnAllNavigate() throws SQLException {
+        return service.returnAllNavigate();
     }
 }

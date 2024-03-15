@@ -27,7 +27,7 @@ public class UserRepository {
     }
 
     public List<?> findUsers() throws SQLException {
-        String sql = "select * from board";
+        String sql = "SELECT * FROM user";
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet rs = statement.executeQuery();
 

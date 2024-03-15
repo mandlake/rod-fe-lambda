@@ -35,7 +35,7 @@ public enum NavigationOfPredicate {
     }),
 
     ACCOUNT("m", sc -> {
-        AccountView.accontView(sc);
+        AccountView.accountView(sc);
         return true;
     }),
     Crawler("c", sc-> {

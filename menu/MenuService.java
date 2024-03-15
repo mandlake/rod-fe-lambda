@@ -17,4 +17,6 @@ public interface MenuService {
     Messenger returnMessenger() throws SQLException;
 
     Menu returnOneMenu() throws SQLException;
+
+    List<?> returnAllNavigate() throws SQLException;
 }

@@ -33,7 +33,7 @@ public enum NavigationOfFunction {
         return "종료되었습니다.";
     }),
     ACCOUNT("a", sc -> {
-        AccountView.accontView(sc);
+        AccountView.accountView(sc);
         return "종료되었습니다.";}),
     CRAWLER("c", sc -> {
         try {

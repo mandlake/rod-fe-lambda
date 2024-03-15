@@ -1,4 +1,4 @@
 package com.rod.api.article;
 
-public class ArticleServiceImpl {
+public class ArticleServiceImpl implements ArticleService{
 }

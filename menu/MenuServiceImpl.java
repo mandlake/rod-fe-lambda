@@ -81,4 +81,9 @@ public class MenuServiceImpl implements MenuService {
     public Menu returnOneMenu() throws SQLException {
         return repository.returnOneMenu();
     }
+
+    @Override
+    public List<?> returnAllNavigate() throws SQLException {
+        return repository.returnAllNavigate();
+    }
 }

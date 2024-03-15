@@ -6,10 +6,12 @@ import java.util.function.*;
 import java.util.stream.Stream;
 
 public enum UserRouter {
-    EXIT("x", sc -> {
-        return false;
+    EXIT("x", sc -> false),
+    MAKE("mk", sc -> {
+        System.out.println("테이블생성");
+        return true;
     }),
-    JOIN("j", sc -> {
+    JOIN("joi", sc -> {
         System.out.println("회원가입");
         System.out.println("ID, 비밀번호, 이름, 주민번호," +
                 " 전화번호, 주소, 직업을 입력해주세요");
@@ -17,32 +19,32 @@ public enum UserRouter {
                 + UserController.getInstance().save(sc));
         return true;
     }),
-    LOGIN("l", sc -> {
+    LOGIN("log", sc -> {
         System.out.println("로그인");
         System.out.println("아이디와 비밀번호를 입력하세요.");
         System.out.println("로그인 결과 : "
                 + UserController.getInstance().login(sc));
         return true;
     }),
-    ID("id", sc -> {
+    ID("cat", sc -> {
         System.out.println("ID 검색");
         System.out.println("검색할 아이디를 입력하세요.");
         System.out.println(UserController.getInstance().getOne(sc));
         return true;
     }),
-    PASSWORD("pw", sc -> {
+    PASSWORD("ch-pw", sc -> {
         System.out.println("비번변경");
         System.out.println("아이디와 비밀번호를 입력하세요.");
         System.out.println(UserController.getInstance().updatePassword(sc));
         return true;
     }),
-    DELETE("e", sc -> {
+    DELETE("rm", sc -> {
         System.out.println("탈퇴");
         System.out.println("아이디를 입력하세요.");
         System.out.println(UserController.getInstance().delete(sc));
         return true;
     }),
-    LIST("ls", sc -> {
+    LIST("ls-a", sc -> {
         System.out.println("회원목록");
         try {
             UserController.getInstance().getUsers();
@@ -51,7 +53,7 @@ public enum UserRouter {
         }
         return true;
     }),
-    NAME("n", sc -> {
+    NAME("ls-n", sc -> {
         System.out.println("이름검색");
         System.out.println("이름을 입력하세요.");
         UserController.getInstance()
@@ -59,7 +61,7 @@ public enum UserRouter {
                 .forEach(System.out::println);
         return true;
     }),
-    JOB("j", sc -> {
+    JOB("ls-job", sc -> {
         System.out.println("직업검색");
         System.out.println("직업을 입력하세요.");
         UserController.getInstance()
@@ -67,14 +69,10 @@ public enum UserRouter {
                 .forEach(System.out::println);
         return true;
     }),
-    COUNT("c", sc -> {
+    COUNT("cnt", sc -> {
         System.out.println("회원수");
         String numberOfUsers = UserController.getInstance().count();
         System.out.println("회원수 "+numberOfUsers);
-        return true;
-    }),
-    MAKE("mk", sc -> {
-        System.out.println("테이블생성");
         return true;
     }),
     ERROR("error", sc-> {
@@ -90,7 +88,7 @@ public enum UserRouter {
     }
 
     public static Boolean execute(Scanner sc) {
-        System.out.println("[사용자메뉴] x-종료 mk-테이블생성 joi-회원가입 log-로그인 cat-ID검색 ch-pw-비번변경 rm-탈퇴 ls-a-회원목록 " +
+        System.out.println("[사용자메뉴] x-종료 mk-테이블생성 joi-회원가입 log-로그인 cat-ID 검색 ch-pw-비번변경 rm-탈퇴 ls-a-회원목록 " +
                 "ls-n-이름검색 ls-job-직업검색 cnt-회원수");
         String s = sc.next();
         return Stream.of(values())

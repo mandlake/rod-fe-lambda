@@ -1,4 +1,4 @@
 package com.rod.api.soccer;
 
-public class SoccerServiceImpl {
+public class SoccerServiceImpl implements SoccerService {
 }

@@ -88,7 +88,7 @@ public class MenuRepository {
             ps.setString(1, category);
             rs = ps.executeQuery();
             while(rs.next())
-                menus.add(Menu.builder().item(rs.getString(1)).build());
+                menus.add(Menu.builder().item(rs.getString(1)).category(category).build());
         } catch (SQLException e){
             System.err.println("SQL Exception Occurred");
             return menus;
@@ -121,6 +121,17 @@ public class MenuRepository {
         while (rs.next())
             menus.add(Menu.builder().build());
 
+        return menus;
+    }
+
+    public List<?> returnAllNavigate() throws SQLException {
+        String sql = "SELECT m.item FROM menus m WHERE category = 'navigate'";
+        ps = connection.prepareStatement(sql);
+        rs = ps.executeQuery();
+
+        List<String> menus = new ArrayList<>();
+        while (rs.next())
+            menus.add(rs.getString(1));
         return menus;
     }
 }

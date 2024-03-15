@@ -2,6 +2,7 @@ package com.rod.api.board;
 
 import com.rod.api.board.infoBoard.InfoBoardView;
 import com.rod.api.board.productBoard.ProductBoardView;
+import com.rod.api.board.userBoard.UserBoard;
 import com.rod.api.board.userBoard.UserBoardView;
 
 import java.sql.SQLException;
@@ -10,30 +11,9 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public enum BoardRouter {
-    EXIT("0", sc -> {
-        return false;
-    }),
-    PRODUCT("1", sc -> {
-        System.out.println("=== 1-상품게시판 ===");
-        try {
-            ProductBoardView.ProductBoard(sc);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return true;
-    }),
-    INFO("2", sc -> {
-        System.out.println("=== 2-고객센터 ===");
-        try {
-            InfoBoardView.InfoBoard(sc);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return true;
-    }),
-    USER("3", sc -> {
-        System.out.println("=== 3-자유게시판 ===");
-        UserBoardView.UserBoard(sc);
+    EXIT("x", sc -> false),
+    MAKE("mk", sc -> {
+        System.out.println("생성되었습니다.");
         return true;
     }),
     ERROR("", sc -> {

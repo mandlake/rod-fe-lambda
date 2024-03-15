@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 public class UserView {
     public static void userView(Scanner sc) throws SQLException {
-        while (UserRouter.execute(sc));
+        boolean router;
+        do {
+            router = UserRouter.execute(sc);
+        }
+        while (router);
     }
 }

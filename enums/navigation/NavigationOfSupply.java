@@ -37,7 +37,7 @@ public enum NavigationOfSupply {
     }),
     ACCOUNT("a", () -> {
         Scanner sc = new Scanner(System.in);
-        AccountView.accontView(sc);
+        AccountView.accountView(sc);
         return "종료되었습니다.";}),
     CRAWLER("c", () -> {
         Scanner sc = new Scanner(System.in);

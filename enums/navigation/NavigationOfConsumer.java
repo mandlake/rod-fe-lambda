@@ -27,7 +27,7 @@ public enum NavigationOfConsumer {
             throw new RuntimeException(e);
         }
     }),
-    ACCOUNT("a", AccountView::accontView),
+    ACCOUNT("a", AccountView::accountView),
     CRAWLER("c", sc -> {
         try {
             CrawlerView.crawlerView(sc);
