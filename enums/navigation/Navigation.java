@@ -3,6 +3,7 @@ package com.rod.api.enums.navigation;
 import com.rod.api.account.AccountView;
 import com.rod.api.board.BoardView;
 import com.rod.api.crawler.CrawlerView;
+import com.rod.api.menu.MenuController;
 import com.rod.api.user.UserView;
 
 import java.io.IOException;
@@ -43,10 +44,23 @@ public enum Navigation {
         }
         return "종료되었습니다.";
     }),
-
-    ERROR("error", scanner-> {
-        return "다시 입력해 주세요.";
-    });
+    CREATE("mk", sc-> {
+        try {
+            MenuController.getInstance().createTable();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "종료되었습니다.";
+    }),
+    REMOVE("rm", sc-> {
+        try {
+            MenuController.getInstance().removeTable();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return "종료되었습니다.";
+    }),
+    ERROR("error", sc-> "다시 입력해 주세요.");
     private final String s;
     private final Function<Scanner, String> function;
 
@@ -56,7 +70,7 @@ public enum Navigation {
     }
 
     public static String goToPage(Scanner sc) {
-        System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler ===");
+        System.out.println("=== x-Exit u-User b-Board a-Account c-Crawler mk-Create rm-Remove ===");
         String s = sc.next();
         return Arrays.stream(values())
                 .filter(o -> o.s.equals(s))

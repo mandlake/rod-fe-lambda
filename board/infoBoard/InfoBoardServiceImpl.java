@@ -65,12 +65,12 @@ public class InfoBoardServiceImpl extends AbstractBoardService<InfoBoard> implem
     }
 
     @Override
-    public String createTable() throws SQLException {
+    public Messenger createTable() throws SQLException {
         return repository.createTable();
     }
 
     @Override
-    public String removeTable() throws SQLException {
+    public Messenger removeTable() throws SQLException {
         return repository.removeTable();
     }
 }

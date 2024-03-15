@@ -1,5 +1,7 @@
 package com.rod.api.board.productBoard;
 
+import com.rod.api.enums.messanger.Messenger;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -28,11 +30,11 @@ public class ProductBoardController {
         return service.quit();
     }
 
-    public String createTable() throws SQLException {
+    public Messenger createTable() throws SQLException {
         return service.createTable();
     }
 
-    public String removeTable() throws SQLException {
+    public Messenger removeTable() throws SQLException {
         return service.removeTable();
     }
 }

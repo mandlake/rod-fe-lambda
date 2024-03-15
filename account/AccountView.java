@@ -7,7 +7,7 @@ public class AccountView {
         AccountController accountController = new AccountController();
         while(true){
             System.out.println("[Account] 0-Exit 1-Create 2-Deposit " +
-                    "3-Withdraw 4-Balance 5-Remove 6-Account List");
+                    "3-Withdraw 4-Balance 5-Remove 6-Account 7-List");
             switch (sc.next()){
                 case "0": return;
                 case "1":

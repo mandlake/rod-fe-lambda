@@ -14,12 +14,12 @@ public class UserBoardServiceImpl extends AbstractBoardService<UserBoard> implem
     }
 
     @Override
-    public String createTable() throws SQLException {
+    public Messenger createTable() throws SQLException {
         return null;
     }
 
     @Override
-    public String removeTable() throws SQLException {
+    public Messenger removeTable() throws SQLException {
         return null;
     }
 

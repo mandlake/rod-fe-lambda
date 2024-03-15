@@ -73,7 +73,7 @@ public enum UserRouter {
         System.out.println("회원수 "+numberOfUsers);
         return true;
     }),
-    TOUCH("touch", sc -> {
+    MAKE("mk", sc -> {
         System.out.println("테이블생성");
         return true;
     }),
@@ -99,7 +99,7 @@ public enum UserRouter {
 
     public static Boolean execute(Scanner sc) {
         System.out.println("[사용자메뉴] x-종료 j-회원가입 l-로그인 id-ID검색 pw-비번변경 e-탈퇴 ls-회원목록 " +
-                "n-이름검색 j-직업검색 c-회원수 touch-테이블생성 rm-테이블삭제 in-아이템삽입");
+                "n-이름검색 j-직업검색 c-회원수 mk-테이블생성 rm-테이블삭제 in-아이템삽입");
         String s = sc.next();
         return Stream.of(values())
                 .filter(o -> o.s.equals(s))

@@ -1,6 +1,7 @@
 package com.rod.api.board.productBoard;
 
 import com.rod.api.board.AbstractBoardRepository;
+import com.rod.api.enums.messanger.Messenger;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class ProductBoardRepository extends AbstractBoardRepository {
     }
 
     private final Connection connection;
+    private PreparedStatement pstmt;
+    private ResultSet rs;
     List<?> ls;
 
     private ProductBoardRepository() throws SQLException {
@@ -74,8 +77,8 @@ public class ProductBoardRepository extends AbstractBoardRepository {
     }
 
     @Override
-    public String createTable() throws SQLException {
-        String createTableQuery
+    public Messenger createTable() throws SQLException {
+        String sql
                 = "CREATE TABLE IF NOT EXISTS ProductsTable "
                 + "(id INT PRIMARY KEY AUTO_INCREMENT, "
                 + "title VARCHAR(20), "
@@ -84,19 +87,25 @@ public class ProductBoardRepository extends AbstractBoardRepository {
                 + "date VARCHAR(20), "
                 + "count VARCHAR(20)"
                 + ")";
-        PreparedStatement ps = connection.prepareStatement(createTableQuery);
-        ps.executeUpdate();
-        ps.close();
-        return "테이블이 생성되었습니다.";
+        try {
+            pstmt = connection.prepareStatement(sql);
+            return pstmt.executeUpdate() >= 0 ? Messenger.SUCCESS : Messenger.FAIL;
+        } catch (SQLException e){
+            System.err.println("SQL Exception Occurred");
+            return Messenger.SQL_ERROR;
+        }
     }
 
     @Override
-    public String removeTable() throws SQLException {
-        String dropTableQuery = "DROP TABLE IF EXISTS ProductsTable";
-        PreparedStatement ps = connection.prepareStatement(dropTableQuery);
-        ps.executeUpdate();
-        ps.close();
-        return "테이블이 삭제되었습니다.";
+    public Messenger removeTable() throws SQLException {
+        String sql = "DROP TABLE IF EXISTS ProductsTable";
+        try {
+            pstmt = connection.prepareStatement(sql);
+            return pstmt.executeUpdate() >= 0 ? Messenger.SUCCESS : Messenger.FAIL;
+        } catch (SQLException e){
+            System.err.println("SQL Exception Occurred");
+            return Messenger.SQL_ERROR;
+        }
     }
 
     @Override
